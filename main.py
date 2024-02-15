@@ -24,7 +24,8 @@ def main():
     move_speed = 1
 
     # 폰트 설정
-    font = pygame.font.Font(None, 36)
+    font_large = pygame.font.Font(None, 36)
+    font_small = pygame.font.Font(None, 24)
 
     # 게임 루프
     running = True
@@ -66,10 +67,29 @@ def main():
             1,
         )
 
-        # "Press Q to exit" 문구 표시
-        text = font.render("Press Q to exit", True, BLACK)
-        text_rect = text.get_rect(center=(screen.get_width() // 2, 30))
-        screen.blit(text, text_rect)
+        # Press Q to exit 문구 출력
+        press_to_exit_text = "Press Q to exit"
+        press_to_exit_surface = font_large.render(press_to_exit_text, True, BLACK)
+        press_to_exit_rect = press_to_exit_surface.get_rect(
+            center=(screen.get_width() // 2, 30)
+        )
+        screen.blit(press_to_exit_surface, press_to_exit_rect)
+
+        # 현재 해상도 출력
+        resolution_text = f"Resolution: {screen.get_width()}x{screen.get_height()}"
+        resolution_surface = font_small.render(resolution_text, True, BLACK)
+        screen.blit(
+            resolution_surface,
+            (screen.get_width() - resolution_surface.get_width() - 10, 10),
+        )
+
+        # 현재 말의 위치 출력
+        position_text = f"Piece Position: ({piece_x}, {piece_y})"
+        position_surface = font_small.render(position_text, True, BLACK)
+        screen.blit(
+            position_surface,
+            (screen.get_width() - position_surface.get_width() - 10, 40),
+        )
 
         # 화면 업데이트
         pygame.display.flip()
